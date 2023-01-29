@@ -1,22 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 import {TaskType, TodoList} from "./TodoList";
-let tasks1: Array<TaskType> = [
-    {id: 1, title: 'testTitle', isDone: true},
-    {id: 2, title: 'testTitle', isDone: true},
-    {id: 3, title: 'testTitle', isDone: false},
-]
-let tasks2: Array<TaskType> = [
-    {id: 1, title: 'testTitle2', isDone: false },
-    {id: 2, title: 'testTitle2', isDone: true},
-    {id: 3, title: 'testTitle2', isDone: true},
-]
+export type FilterValuesType = 'all' | 'completed' | 'active';
 function App() {
+
+    let [tasks, setTasks] = useState<Array<TaskType>>([
+        {id: 1, title: 'testTitle', isDone: true},
+        {id: 2, title: 'testTitle', isDone: true},
+        {id: 3, title: 'testTitle', isDone: false},
+        {id: 4, title: 'testTitle1', isDone: true},
+    ]);
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    function removeTask(id: number) {
+        let filteredTasks = tasks.filter( task => task.id !== id);
+        setTasks(filteredTasks);
+    }
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
+    let tasksForTodoList = tasks;
+
+    if (filter === "completed"){
+        tasksForTodoList = tasks.filter( task => task.isDone === true);
+    }
+    if (filter === "active"){
+        tasksForTodoList = tasks.filter( task => task.isDone === false);
+    }
+
     return (
         <div>
-            <TodoList title='What to add?' tasks={tasks1}/>
-            <TodoList title='test3' tasks={tasks2}/>
+            <TodoList
+                title='What to add?'
+                tasks={tasksForTodoList}
+                removeTask={removeTask}
+                changeFilter={changeFilter}
+            />
         </div>);
 }
 
