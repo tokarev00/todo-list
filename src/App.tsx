@@ -55,23 +55,37 @@ function App() {
         }
         setTodoLists([...todoLists ]);
     }
-    function changeStatus (taskId: string, isDone : boolean , todoListId: string) : void {
+    function changeTaskStatus (taskId: string, isDone : boolean , todoListId: string) : void {
        let task = tasksOBJ[todoListId].find((task) => task.id === taskId);
         if (task) {
             task.isDone = isDone;
         }
         setTasksOBJ({...tasksOBJ});
     }
-    function removeTodoList (todoListId:string) {
+    function changeTaskTitle (taskId: string, newTitle: string, todoListId: string) : void {
+        let task = tasksOBJ[todoListId].find((task) => task.id === taskId);
+         if (task) {
+             task.title = newTitle;
+         }
+         setTasksOBJ({...tasksOBJ});
+     }
+    function removeTodoList (todoListId: string) {
         let filteredLists = todoLists.filter(tl => tl.id !== todoListId);
         setTodoLists(filteredLists);
         delete tasksOBJ[todoListId];
         setTasksOBJ({...tasksOBJ});
     }
+    function changeTodoListTitle (newTitle: string, todoListId: string) {
+        let todoList = todoLists.find(tl => tl.id === todoListId);
+        if(todoList) {
+            todoList.title = newTitle;
+            setTodoLists([...todoLists]);
+        }
+    }
     function addTodoList (listTitle: string) {
         const todoList: TodoListType = {id: v1(),title: listTitle, filter: 'all' };
         setTodoLists([todoList, ...todoLists]);
-        setTasksOBJ({...tasksOBJ, [todoList.id]: [] })
+        setTasksOBJ({...tasksOBJ, [todoList.id]: [] });
     }
     return (
         <div>
@@ -94,9 +108,11 @@ function App() {
                         removeTask={removeTask}
                         addTask={addTask}
                         changeFilter={changeFilter}
-                        changeTaskStatus={changeStatus}
+                        changeTaskStatus={changeTaskStatus}
+                        changeTaskTitle={changeTaskTitle}
                         filter={ tl.filter}
                         removeTodoList={removeTodoList}
+                        changeTodoListTitle={changeTodoListTitle}
                     />
                 }  )
             }
