@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-
+import { IconButton, TextField } from "@mui/material";
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 type AddItemFormPropsType = {
     initText: string
     onAddItem: (text: string) => void;
@@ -29,15 +30,20 @@ function AddItemForm({initText, onAddItem}: AddItemFormPropsType) {
     }
     return(
         <div>
-            <input
+            <TextField
+                label="Type Value"
+                variant="outlined"
                 type="text"
                 onChange={inputOnChange}
                 onKeyPress={onKeyPressHandler}
                 value={text}
-                className={error ? 'error' : ''}
+                error={!!error}
+                helperText={error}
             />
-            <button onClick={handleSubmit}>+</button>
-            {error && <div className='error-message'>{error}</div>}
+            <IconButton onClick={handleSubmit} color="primary">
+                <ControlPointIcon/>
+            </IconButton>
+            {/* {error && <div className='error-message'>{error}</div>} */}
         </div>
     )
 }
