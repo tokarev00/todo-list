@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { TasksStateType } from "../App";
+import { TasksStateType } from "../AppWithRedux";
 import {TaskType} from "../TodoList";
 import { AddTodoListActionType, RemoveTodoListActionType } from "./todolists-reducer";
 
@@ -32,8 +32,9 @@ type ActionTypes = AddTaskActionType |
                    AddTodoListActionType |
                    RemoveTodoListActionType;
 
+const initialState: TasksStateType = {};
 
-export const tasksReducer = (state: TasksStateType, action: ActionTypes): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionTypes): TasksStateType => {
     switch (action.type) {
         case 'ADD-TASK':
             const { todoListId: addId, title: addTitle } = action;

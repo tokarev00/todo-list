@@ -1,6 +1,6 @@
-import { TodoListType } from "../App"
+import { TodoListType } from "../AppWithRedux"
 import { v1 } from "uuid";
-import { FilterValuesType } from "../App";
+import { FilterValuesType } from "../AppWithRedux";
 
 export type RemoveTodoListActionType = {
     type: 'REMOVE-TODOLIST'
@@ -23,17 +23,20 @@ export type ChangeTodoListFilterType = {
 }
 type ActionTypes = RemoveTodoListActionType | AddTodoListActionType | ChangeTodoListTitleType | ChangeTodoListFilterType;
 
-export const todolistsReducer  = (state: Array<TodoListType>, action: ActionTypes) : Array<TodoListType> => {
+const initialState: Array<TodoListType> = [];
+
+export const todolistsReducer  = (state: Array<TodoListType> = initialState, action: ActionTypes) : Array<TodoListType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
             return state.filter((todoList) =>todoList.id !== action.id);
         case 'ADD-TODOLIST':
-            return [...state,
+            return [
                 { 
                     id: action.id,
                     title:action.title,
                     filter: 'all'
-                }   
+                }, 
+                ...state
             ];
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(todoList => (todoList.id === action.id ? { ...todoList, title: action.newTitle } : todoList));
@@ -44,8 +47,7 @@ export const todolistsReducer  = (state: Array<TodoListType>, action: ActionType
                     : todoList
             );   
         default:
-            // @ts-ignore
-            throw new Error(`Unhandled action type: ${action.type}`);
+            return state;
     }
 }
 
