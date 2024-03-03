@@ -42,4 +42,4 @@ function EditableSpan({ title, onChange }: EditableSpanPropsType) {
     );
 }
 
-export default EditableSpan;
+export default React.memo(EditableSpan);
