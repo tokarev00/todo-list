@@ -1,5 +1,5 @@
 import './App.css';
-import { TaskType, TodoList } from "./TodoList";
+import { TodoList } from "./TodoList";
 import { AppBar, Toolbar, IconButton, Typography, Button, Box, Container, Grid, Paper } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AddItemForm from "./AddItemForm";
@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppRootState } from './state/store';
 import { useCallback } from 'react';
+import { TaskType } from './Task';
 export type FilterValuesType = 'all' | 'completed' | 'active';
 export type TodoListType = {
     id: string,
