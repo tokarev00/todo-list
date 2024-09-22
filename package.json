@@ -32,9 +32,7 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_e48cbeeac3da5a5",
-    "jest:integration": "jest --config=integration/jest.config.js",
-    "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration"
+    "chromatic": "npx chromatic --project-token=chpt_e48cbeeac3da5a5"
   },
   "eslintConfig": {
     "extends": [
@@ -67,7 +65,12 @@
     "@storybook/react-webpack5": "^8.3.0",
     "@storybook/test": "^8.3.0",
     "eslint-plugin-storybook": "^0.8.0",
+    "jest-environment-node": "^29.7.0",
+    "jest-image-snapshot": "^6.4.0",
+    "jest-puppeteer": "^10.1.1",
     "prop-types": "15.8.1",
+    "puppeteer": "^23.4.0",
+    "start-server-and-test": "^2.0.8",
     "storybook": "^8.3.0",
     "webpack": "5.94.0"
   }
